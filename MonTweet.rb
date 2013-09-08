@@ -15,7 +15,7 @@ port =  27017
 username =  'mongodb_username'
 password =  'mongodb_password'
 
-search_or_stream = ARGV[1] || 'METHOD' # 0 : Twitter.search, 1 : Tweetstream Daemon
+search_or_stream = ARGV[1] || 'METHOD' # search : Twitter.search, stream : Tweetstream Daemon
 
 term = 'New Orleans Saints' # term(s) to track
 
