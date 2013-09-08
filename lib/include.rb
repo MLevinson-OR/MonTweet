@@ -1,0 +1,10 @@
+require 'tweetstream'
+require 'twitter'
+require 'time'
+require 'yaml'
+require 'mongo'
+require 'mongo_mapper'
+require 'date'
+require './models/mmap_class'
+require './lib/twit_defs'
+
