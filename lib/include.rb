@@ -5,6 +5,8 @@ require 'yaml'
 require 'mongo'
 require 'mongo_mapper'
 require 'date'
+require 'growl'
 require './models/mmap_class'
 require './lib/twit_defs'
+require './lib/def_methods'
 

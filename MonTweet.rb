@@ -12,31 +12,20 @@ require './lib/include'
 
 host=  'localhost'
 port =  27017
-username =  'MongoDb_username'
-password =  'MongoDb_password'
+username =  'mongodb_username'
+password =  'mongodb_password'
 
-num  = 3 # number of loops ( total tweet count = (num + 1) * 100)
-term = 'Machine Learning'
+search_or_stream = ARGV[1] || 'METHOD' # 0 : Twitter.search, 1 : Tweetstream Daemon
+
+term = 'New Orleans Saints' # term(s) to track
+
+MongoMapper.connection = Mongo::Connection.new(host, port)
+MongoMapper.database = 'admin'
+MongoMapper.database.authenticate(username,password)
+MongoMapper.database = 'montweet3'
+Tweet.ensure_index(:tweet_id, :unique => true)
 
 auth = YAML.load_file File.dirname(__FILE__) + '/twitauth.yml'
 
-Twitter.configure do |config|
-	config.consumer_key = auth['consumer_key']
-	config.consumer_secret = auth['consumer_secret']
-	config.oauth_token = auth['access_token']
-      	config.oauth_token_secret = auth['access_token_secret']
-end
-
-MongoMapper.connection = Mongo::Connection.new(host, port)
-MongoMapper.database = 'montweet'
-MongoMapper.database.authenticate(username,password)
-
-puts "Preparing to search for #{term}" 
-
-
-	Twitter.search(term, :count => 100, :result_type => "recent").results.map do |tweet|	
-		mon_tweet_store(tweet)	
-	end
-
-
+def_method(search_or_stream, auth, term)
 
