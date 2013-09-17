@@ -1,4 +1,4 @@
-MonTweet
+MonTweet - under development
 ========
 
 Twitter search to MongoDB using MongoMapper. 
