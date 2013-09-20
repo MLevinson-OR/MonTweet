@@ -12,18 +12,18 @@ require './lib/include'
 
 host=  'localhost'
 port =  27017
-username =  'mongodb_username'
-password =  'mongodb_password'
+username =  'Mongo_Username'
+password =  'Mongo_Password'
 
-search_or_stream = ARGV[1] || 'METHOD' # search : Twitter.search, stream : Tweetstream Daemon
+search_or_stream = ARGV[1] || 'METHOD' # 0 : Twitter.search, 1 : Tweetstream Daemon
 
-term = 'New Orleans Saints' # term(s) to track
+term = '#nowplaying'
 
 MongoMapper.connection = Mongo::Connection.new(host, port)
 MongoMapper.database = 'admin'
 MongoMapper.database.authenticate(username,password)
-MongoMapper.database = 'montweet3'
-Tweet.ensure_index(:tweet_id, :unique => true)
+MongoMapper.database = 'nowplaying'
+Tweet.ensure_index(:twitter_id, :unique => true)
 
 auth = YAML.load_file File.dirname(__FILE__) + '/twitauth.yml'
 

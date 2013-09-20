@@ -1,0 +1,21 @@
+class Geo
+	include MongoMapper::Document
+
+	key :type, String
+	#coordinate coordinates are lon lat - geo coordinates are lat lon.
+	key :coordinates, Array
+	key :tweet_id, ObjectId
+
+	belongs_to :tweet
+  
+  	def self.new_from_raw(geo, tweet_id)
+		return if geo.nil?
+		geo = Hashie::Mash[geo.attrs]
+		obj = self.new
+		obj.type = geo["type"]
+		obj.coordinates = geo["coordinates"]
+		obj.tweet_id = tweet_id
+		obj.save!
+		obj
+  	end
+end

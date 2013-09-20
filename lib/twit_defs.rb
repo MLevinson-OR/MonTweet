@@ -34,4 +34,7 @@ def mon_tweet_store(tweet)
     end
 end
 
+def to_hashie(data)
+	return Hashie::Mash[Hashie::Clash[data]]
+end
 
